@@ -1,0 +1,1 @@
+﻿namespace KaraokeManager.DTO;public sealed record ServiceOrder(int ServiceId,int Quantity,decimal UnitPrice);

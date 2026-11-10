@@ -1,0 +1,1 @@
+﻿using Microsoft.Data.SqlClient;namespace GarageManager.DAL;internal static class Db{internal static string ConnectionString {get;set;}=@"Server=localhost\SQLEXPRESS;Database=GarageDB;Trusted_Connection=True;TrustServerCertificate=True;";internal static SqlConnection Open(){var c=new SqlConnection(ConnectionString);c.Open();return c;}}

@@ -1,0 +1,3 @@
+﻿using ProjectTasks.DAL;using System.Data;
+namespace ProjectTasks.BUS;
+public sealed class TaskService { public TaskRepository Repository {get;}=new();public void ValidateProject(string name){if(string.IsNullOrWhiteSpace(name))throw new InvalidOperationException("Tên dự án không được để trống.");}public void ValidateTask(string name,int project){if(project<=0)throw new InvalidOperationException("Hãy chọn dự án.");if(string.IsNullOrWhiteSpace(name))throw new InvalidOperationException("Tên công việc không được để trống.");}public DataTable Overdue()=>Repository.Overdue(); }

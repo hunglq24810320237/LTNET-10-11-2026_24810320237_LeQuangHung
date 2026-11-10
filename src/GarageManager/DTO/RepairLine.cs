@@ -1,0 +1,1 @@
+﻿namespace GarageManager.DTO;public sealed record RepairLine(int PartId,string PartName,int Quantity,decimal Labor);
