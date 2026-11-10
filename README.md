@@ -1,23 +1,114 @@
-﻿# LTNET-10-11-2026_24810320237_LeQuangHung
+# BÁO CÁO BÀI TẬP THỰC HÀNH LẬP TRÌNH C# WINFORMS - KẾT NỐI CƠ SỞ DỮ LIỆU SQL SERVER
 
-## Thông tin sinh viên
+## I. THÔNG TIN SINH VIÊN
+- **Họ và tên:** Lê Quang Hưng
+- **Mã số sinh viên:** 24810320237
+- **Lớp:** D19QTANM1
+- **Môn học:** Lập trình .NET / Windows Forms
+- **Tên bài tập:** Bài 6.3, 6.4 và 6.5 — Quản lý công việc, Garage và Karaoke
 
-- Họ và tên: Lê Quang Hưng
-- Mã sinh viên: 24810320237
-- Lớp: D19QTANM1
-- Môn học: Lập trình .NET
+---
 
-Repository gồm ba ứng dụng Windows Forms cho bài 6.3, 6.4 và 6.5. Mỗi bài dùng CSDL SQL Server riêng và được chia thành DTO, DAL, BUS, GUI.
+## II. THÔNG TIN HỆ THỐNG & CƠ SỞ DỮ LIỆU
+- **Hệ quản trị CSDL:** Microsoft SQL Server Express (`localhost\\SQLEXPRESS`)
+- **Cơ sở dữ liệu:** `ProjectTaskDB`, `GarageDB`, `KaraokeDB`
+- **Công nghệ / Thư viện:** C# Windows Forms, .NET 10, ADO.NET (`Microsoft.Data.SqlClient`)
+- **Mô hình phân lớp:** DTO, DAL, BUS và GUI
+- **Môi trường phát triển:** Visual Studio 2026
 
-## Công nghệ
+---
 
-- C# Windows Forms, .NET 10
-- SQL Server Express (`localhost\SQLEXPRESS`)
-- ADO.NET (`Microsoft.Data.SqlClient`)
-- Visual Studio 2026
+## III. CÁC TÍNH NĂNG ĐÃ HOÀN THÀNH
 
-## Cấu trúc thư mục
+### Bài 6.3 — Hệ thống quản lý công việc và tiến độ dự án
+1. **Quản lý dự án và thành viên:** Thêm, cập nhật và xóa dự án; nạp thành viên từ SQL Server.
+2. **Quản lý công việc:** Tạo task, đặt hạn nộp và ưu tiên, giao cho nhiều thành viên, lọc theo dự án và trạng thái.
+3. **Truy vấn an toàn:** Cập nhật trạng thái bằng truy vấn có tham số; không ghép dữ liệu người dùng trực tiếp vào câu SQL.
+4. **Báo cáo:** Liệt kê task trễ hạn bằng `SqlDataReader` và tổng hợp tỷ lệ hoàn thành theo thành viên bằng `GROUP BY`.
 
+### Bài 6.4 — Hệ thống quản lý Garage và sửa chữa ô tô
+1. **Quản lý chủ xe, xe và phụ tùng:** Thêm, cập nhật, tra cứu theo biển số và theo dõi tồn kho.
+2. **Lập phiếu sửa chữa:** Ghi phiếu cùng các phụ tùng sử dụng trong một `SqlTransaction`.
+3. **Kiểm soát tồn kho:** Trừ kho khi lập phiếu; nếu số lượng không đủ thì rollback toàn bộ giao dịch.
+4. **Thanh toán và báo cáo:** Chuyển trạng thái phiếu sang đã thanh toán, tổng hợp số phiếu và doanh thu.
+
+### Bài 6.5 — Hệ thống quản lý phòng Karaoke
+1. **Sơ đồ phòng:** Hiển thị phòng trống và phòng đang hát bằng màu sắc; mở phòng tạo hóa đơn.
+2. **Quản lý dịch vụ:** Thêm, cập nhật danh mục dịch vụ và tồn kho.
+3. **Gọi dịch vụ:** Chỉnh sửa chi tiết bằng `DataTable` và đồng bộ xuống CSDL bằng `SqlDataAdapter` / `SqlCommandBuilder`.
+4. **Thanh toán:** Tính tiền phòng theo thời gian, trừ tồn kho và trả phòng trong một `SqlTransaction`; thiếu tồn kho thì rollback.
+5. **Báo cáo:** Xem hóa đơn, trạng thái thanh toán và chi tiết dịch vụ.
+
+---
+
+## IV. HÌNH ẢNH MINH HỌA KẾT QUẢ
+
+### Bài 6.3 — Quản lý công việc và tiến độ dự án
+#### 1. Màn hình chính / Tổng quan
+![Màn hình chính bài 6.3](images/Bai6.3/01_main_screen.jpg)
+*Minh họa: Kết nối `ProjectTaskDB` và số liệu tổng quan dự án.*
+
+#### 2. Màn hình quản lý danh mục / CRUD
+![Màn hình CRUD bài 6.3](images/Bai6.3/02_crud_screen.jpg)
+*Minh họa: Danh sách dự án và các thao tác quản lý.*
+
+#### 3. Màn hình thực thi nghiệp vụ chính
+![Màn hình nghiệp vụ bài 6.3](images/Bai6.3/03_transaction_screen.jpg)
+*Minh họa: Danh sách task, trạng thái và phân công thành viên.*
+
+#### 4. Màn hình báo cáo - thống kê
+![Màn hình thống kê bài 6.3](images/Bai6.3/04_report_screen.jpg)
+*Minh họa: Task quá hạn được truy vấn từ SQL Server.*
+
+#### 5. Minh họa xử lý an toàn / lỗi
+![Xử lý truy vấn bài 6.3](images/Bai6.3/05_error_handling.jpg)
+*Minh họa: Cập nhật trạng thái task bằng truy vấn tham số.*
+
+### Bài 6.4 — Quản lý Garage và sửa chữa ô tô
+#### 1. Màn hình chính / Tổng quan
+![Màn hình chính bài 6.4](images/Bai6.4/01_main_screen.jpg)
+*Minh họa: Kết nối `GarageDB`, số xe, phụ tùng và phiếu sửa chữa.*
+
+#### 2. Màn hình quản lý danh mục / CRUD
+![Màn hình CRUD bài 6.4](images/Bai6.4/02_crud_screen.jpg)
+*Minh họa: Quản lý chủ xe và phương tiện.*
+
+#### 3. Màn hình thực thi nghiệp vụ chính
+![Màn hình nghiệp vụ bài 6.4](images/Bai6.4/03_transaction_screen.jpg)
+*Minh họa: Lập phiếu sửa chữa, ghi chi tiết và cập nhật kho bằng giao dịch.*
+
+#### 4. Màn hình báo cáo - thống kê
+![Màn hình thống kê bài 6.4](images/Bai6.4/04_report_screen.jpg)
+*Minh họa: Phiếu sửa chữa và doanh thu sau thanh toán.*
+
+#### 5. Minh họa báo lỗi giao dịch / Rollback
+![Rollback bài 6.4](images/Bai6.4/05_error_handling.jpg)
+*Minh họa: Kho không đủ phụ tùng; giao dịch được rollback.*
+
+### Bài 6.5 — Quản lý phòng Karaoke
+#### 1. Màn hình chính / Tổng quan
+![Màn hình chính bài 6.5](images/Bai6.5/01_main_screen.jpg)
+*Minh họa: Sơ đồ phòng trống và trạng thái phòng.*
+
+#### 2. Màn hình quản lý danh mục / CRUD
+![Màn hình CRUD bài 6.5](images/Bai6.5/02_crud_screen.jpg)
+*Minh họa: Danh mục dịch vụ, đơn giá và tồn kho.*
+
+#### 3. Màn hình thực thi nghiệp vụ chính
+![Màn hình nghiệp vụ bài 6.5](images/Bai6.5/03_transaction_screen.jpg)
+*Minh họa: Gọi dịch vụ và lưu chi tiết hóa đơn xuống CSDL.*
+
+#### 4. Màn hình báo cáo - thống kê
+![Màn hình thống kê bài 6.5](images/Bai6.5/04_report_screen.jpg)
+*Minh họa: Hóa đơn đã thanh toán và chi tiết dịch vụ.*
+
+#### 5. Minh họa báo lỗi giao dịch / Rollback
+![Rollback bài 6.5](images/Bai6.5/05_error_handling.jpg)
+*Minh họa: Tồn kho dịch vụ không đủ; thanh toán được rollback.*
+
+---
+
+## V. CẤU TRÚC REPOSITORY
 ```text
 LTNET-10-11-2026_24810320237_LeQuangHung/
 ├── .gitignore
@@ -27,65 +118,22 @@ LTNET-10-11-2026_24810320237_LeQuangHung/
 │   ├── GarageDB.sql
 │   └── KaraokeDB.sql
 ├── images/
-│   ├── Bai6.3/
-│   ├── Bai6.4/
-│   └── Bai6.5/
+│   ├── Bai6.3/  (05 ảnh minh họa)
+│   ├── Bai6.4/  (05 ảnh minh họa)
+│   └── Bai6.5/  (05 ảnh minh họa)
 └── src/
     ├── LTNET-10-11-2026_24810320237_LeQuangHung.sln
     ├── ProjectTasks/
     ├── GarageManager/
     └── KaraokeManager/
 ```
+File `.gitignore` loại trừ `.vs/`, `bin/`, `obj/` và các file người dùng do Visual Studio tạo ra.
 
-## Cài đặt và chạy
+---
 
-1. Trong SQL Server Management Studio, kết nối `localhost\SQLEXPRESS` bằng Windows Authentication.
-2. Chạy lần lượt `Database/ProjectTaskDB.sql`, `Database/GarageDB.sql` và `Database/KaraokeDB.sql`. Các script tạo CSDL và dữ liệu mẫu tiếng Việt; chạy lại không xóa bảng hay dữ liệu hiện có.
-3. Mở `src/LTNET-10-11-2026_24810320237_LeQuangHung.sln` bằng Visual Studio 2026.
-4. Chọn `ProjectTasks`, `GarageManager` hoặc `KaraokeManager` làm Startup Project rồi nhấn F5.
-5. Nếu SQL Server dùng instance khác, sửa `ConnectionString` trong thư mục DAL tương ứng.
-
-## Bài 6.3 — Quản lý dự án và tiến độ
-
-- CRUD dự án và task, giao task cho nhiều thành viên.
-- Lọc task theo dự án/trạng thái và cập nhật trạng thái bằng truy vấn có tham số.
-- Cảnh báo task trễ hạn bằng `SqlDataReader`; tính tỷ lệ hoàn thành theo thành viên bằng `GROUP BY`.
-- CSDL: `ProjectTaskDB`.
-
-### Ảnh kết quả
-
-1. Tổng quan: ![Tổng quan bài 6.3](images/Bai6.3/01_main_screen.jpg)
-2. CRUD dự án: ![CRUD dự án bài 6.3](images/Bai6.3/02_crud_screen.jpg)
-3. Danh sách task và phân công: ![Nghiệp vụ bài 6.3](images/Bai6.3/03_transaction_screen.jpg)
-4. Báo cáo tiến độ và task trễ hạn: ![Báo cáo bài 6.3](images/Bai6.3/04_report_screen.jpg)
-5. Kiểm tra cập nhật trạng thái an toàn: ![Xử lý lỗi bài 6.3](images/Bai6.3/05_error_handling.jpg)
-
-## Bài 6.4 — Quản lý Garage và bảo dưỡng ô tô
-
-- Tra cứu xe theo biển số bằng `SqlParameter`; quản lý chủ xe, xe và phụ tùng.
-- Lập phiếu sửa chữa bằng `SqlTransaction`, ghi chi tiết và trừ tồn kho; thiếu phụ tùng thì rollback.
-- Chuyển phiếu sửa chữa sang trạng thái đã thanh toán.
-- CSDL: `GarageDB`.
-
-### Ảnh kết quả
-
-1. Tổng quan: ![Tổng quan bài 6.4](images/Bai6.4/01_main_screen.jpg)
-2. Chủ xe, xe và phụ tùng: ![CRUD bài 6.4](images/Bai6.4/02_crud_screen.jpg)
-3. Lập phiếu sửa chữa: ![Nghiệp vụ bài 6.4](images/Bai6.4/03_transaction_screen.jpg)
-4. Báo cáo phiếu và thanh toán: ![Báo cáo bài 6.4](images/Bai6.4/04_report_screen.jpg)
-5. Rollback khi kho không đủ: ![Rollback bài 6.4](images/Bai6.4/05_error_handling.jpg)
-
-## Bài 6.5 — Quản lý phòng Karaoke
-
-- Sơ đồ phòng trực quan: màu xanh là phòng trống, màu đỏ là phòng đang hát.
-- Mở phòng, thêm dịch vụ qua `DataTable`/`SqlDataAdapter`, và thanh toán bằng `SqlTransaction`.
-- Tính tiền phòng theo thời gian, trừ tồn dịch vụ và trả phòng sau khi thanh toán.
-- CSDL: `KaraokeDB`.
-
-### Ảnh kết quả
-
-1. Sơ đồ phòng: ![Tổng quan bài 6.5](images/Bai6.5/01_main_screen.jpg)
-2. CRUD dịch vụ: ![CRUD bài 6.5](images/Bai6.5/02_crud_screen.jpg)
-3. Gọi dịch vụ và thanh toán: ![Nghiệp vụ bài 6.5](images/Bai6.5/03_transaction_screen.jpg)
-4. Báo cáo hóa đơn: ![Báo cáo bài 6.5](images/Bai6.5/04_report_screen.jpg)
-5. Rollback khi dịch vụ thiếu hàng: ![Rollback bài 6.5](images/Bai6.5/05_error_handling.jpg)
+## VI. HƯỚNG DẪN CÀI ĐẶT & CHẠY
+1. Mở SQL Server Management Studio và kết nối `localhost\\SQLEXPRESS` bằng Windows Authentication.
+2. Chạy lần lượt `Database/ProjectTaskDB.sql`, `Database/GarageDB.sql` và `Database/KaraokeDB.sql` để tạo CSDL cùng dữ liệu mẫu tiếng Việt.
+3. Mở `src/LTNET-10-11-2026_24810320237_LeQuangHung.sln` trong Visual Studio 2026.
+4. Chọn `ProjectTasks`, `GarageManager` hoặc `KaraokeManager` làm Startup Project rồi nhấn **F5**.
+5. Nếu SQL Server dùng instance khác, sửa `ConnectionString` trong thư mục `DAL` của dự án tương ứng.
