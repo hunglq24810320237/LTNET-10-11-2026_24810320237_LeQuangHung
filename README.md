@@ -45,7 +45,7 @@
 
 ### Bài 6.3 — Quản lý công việc và tiến độ dự án
 #### 1. Màn hình chính / Tổng quan
-![Màn hình chính bài 6.3](images/Bai6.3/01_main_screen.jpg)
+![Màn hình chính bài 6.3](images/Bai6.3/01_main_screen.png)
 *Minh họa: Kết nối `ProjectTaskDB` và số liệu tổng quan dự án.*
 
 #### 2. Màn hình quản lý danh mục / CRUD
@@ -66,7 +66,7 @@
 
 ### Bài 6.4 — Quản lý Garage và sửa chữa ô tô
 #### 1. Màn hình chính / Tổng quan
-![Màn hình chính bài 6.4](images/Bai6.4/01_main_screen.jpg)
+![Màn hình chính bài 6.4](images/Bai6.4/01_main_screen.png)
 *Minh họa: Kết nối `GarageDB`, số xe, phụ tùng và phiếu sửa chữa.*
 
 #### 2. Màn hình quản lý danh mục / CRUD
@@ -87,7 +87,7 @@
 
 ### Bài 6.5 — Quản lý phòng Karaoke
 #### 1. Màn hình chính / Tổng quan
-![Màn hình chính bài 6.5](images/Bai6.5/01_main_screen.jpg)
+![Màn hình chính bài 6.5](images/Bai6.5/01_main_screen.png)
 *Minh họa: Sơ đồ phòng trống và trạng thái phòng.*
 
 #### 2. Màn hình quản lý danh mục / CRUD
